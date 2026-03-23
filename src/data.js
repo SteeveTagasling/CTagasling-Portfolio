@@ -8,7 +8,7 @@ export const DEFAULT_ME = {
   role: "Mechanical Engineer",
   subtitle: " ",
   tagline: " ",
-  location: " ",
+  location: "Bohol, Philippines",
   email: " ",
   github: " ",
   linkedin: " ",

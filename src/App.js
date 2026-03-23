@@ -398,7 +398,7 @@ export default function App() {
 
             <div style={{ opacity: heroLoaded ? 1 : 0, transition: "all 0.8s ease 240ms" }}>
               <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: isMobile ? 20 : 24, color: "#777", marginBottom: 18, letterSpacing: 1, fontStyle: "italic", fontWeight: 600 }}>
-                <Typewriter words={["Mechanical Engineer", "CAD/FEA Specialist", "Thermal Systems Designer", "Manufacturing Engineer"]} />
+                <Typewriter words={["Mechanical Engineer"]} />
               </div>
             </div>
 

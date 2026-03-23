@@ -245,7 +245,6 @@ export default function App() {
   const [SKILLS, setSkills] = useState(DEFAULT_SKILLS);
   const [EXPERIENCE, setExperience] = useState(DEFAULT_EXPERIENCE);
   const [showAdmin, setShowAdmin] = useState(false);
-  const [dataLoaded, setDataLoaded] = useState(false);
 
   // Load from Supabase on mount
   useEffect(() => {
@@ -256,8 +255,7 @@ export default function App() {
         if (saved.skills) setSkills(saved.skills);
         if (saved.experience) setExperience(saved.experience);
       }
-      setDataLoaded(true);
-    }).catch(() => setDataLoaded(true));
+    }).catch(() => {});
   }, []);
 
   const handleAdminSave = async (data) => {

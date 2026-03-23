@@ -240,16 +240,29 @@ function MobileMenu({ active, go, open, setOpen, email }) {
 }
 
 export default function App() {
-  const saved = loadData();
-  const [ME, setME] = useState(saved?.me || DEFAULT_ME);
-  const [PROJECTS, setProjects] = useState(saved?.projects || DEFAULT_PROJECTS);
-  const [SKILLS, setSkills] = useState(saved?.skills || DEFAULT_SKILLS);
-  const [EXPERIENCE, setExperience] = useState(saved?.experience || DEFAULT_EXPERIENCE);
+  const [ME, setME] = useState(DEFAULT_ME);
+  const [PROJECTS, setProjects] = useState(DEFAULT_PROJECTS);
+  const [SKILLS, setSkills] = useState(DEFAULT_SKILLS);
+  const [EXPERIENCE, setExperience] = useState(DEFAULT_EXPERIENCE);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-  const handleAdminSave = (data) => {
+  // Load from Supabase on mount
+  useEffect(() => {
+    loadData().then(saved => {
+      if (saved) {
+        if (saved.me) setME(saved.me);
+        if (saved.projects) setProjects(saved.projects);
+        if (saved.skills) setSkills(saved.skills);
+        if (saved.experience) setExperience(saved.experience);
+      }
+      setDataLoaded(true);
+    }).catch(() => setDataLoaded(true));
+  }, []);
+
+  const handleAdminSave = async (data) => {
     setME(data.me); setProjects(data.projects); setSkills(data.skills); setExperience(data.experience);
-    saveData(data);
+    await saveData(data);
   };
 
   const [active, setActive] = useState("Home");

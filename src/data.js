@@ -1,6 +1,7 @@
 // ─────────────────────────────────────────
-//  Portfolio Data — edit here OR via Admin
+//  Portfolio Data + Supabase storage
 // ─────────────────────────────────────────
+import { supabase } from "./supabase";
 
 export const DEFAULT_ME = {
   name: "Juan D. Cruz",
@@ -42,21 +43,38 @@ export const DEFAULT_EXPERIENCE = [
   { id: 3, role: "Engineering Thesis Researcher", company: "University – Mech Dept.", period: "2021 – 2022", desc: "Conducted thermal and CFD analysis on a biomass gasifier reactor. Published research on heat transfer optimization in fixed-bed combustion chambers." },
 ];
 
-// ── localStorage helpers ──
-const KEY = "portfolio_data";
-
-export function loadData() {
+// ── Supabase: Load portfolio data ──
+export async function loadData() {
   try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) return JSON.parse(raw);
-  } catch {}
-  return null;
+    const { data, error } = await supabase
+      .from("portfolio_data")
+      .select("key, value");
+    if (error || !data?.length) return null;
+    const result = {};
+    data.forEach(row => { result[row.key] = row.value; });
+    return Object.keys(result).length > 0 ? result : null;
+  } catch {
+    return null;
+  }
 }
 
-export function saveData(data) {
-  localStorage.setItem(KEY, JSON.stringify(data));
+// ── Supabase: Save portfolio data ──
+export async function saveData(payload) {
+  const entries = [
+    { key: "me",         value: payload.me },
+    { key: "projects",   value: payload.projects },
+    { key: "skills",     value: payload.skills },
+    { key: "experience", value: payload.experience },
+  ];
+  for (const entry of entries) {
+    await supabase
+      .from("portfolio_data")
+      .upsert(entry, { onConflict: "key" });
+  }
 }
 
+// ── Keep resetData so Admin.js still compiles ──
 export function resetData() {
-  localStorage.removeItem(KEY);
+  // No-op — data lives in Supabase now
+  // To reset, go to Supabase → Table Editor → delete rows in portfolio_data
 }

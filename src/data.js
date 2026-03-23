@@ -4,15 +4,15 @@
 import { supabase } from "./supabase";
 
 export const DEFAULT_ME = {
-  name: "Juan D. Cruz",
+  name: " ",
   role: "Mechanical Engineer",
-  subtitle: "Design & Manufacturing Specialist",
-  tagline: "Engineering precision-crafted solutions from concept to production.",
-  location: "Manila, Philippines",
-  email: "juan@mecheng.com",
-  github: "https://linkedin.com/",
-  linkedin: "https://linkedin.com/",
-  bio: "I am a Mechanical Engineer with a passion for design, thermodynamics, and manufacturing systems. I combine analytical thinking with hands-on fabrication experience to deliver reliable, efficient, and cost-effective engineering solutions.",
+  subtitle: " ",
+  tagline: " ",
+  location: " ",
+  email: " ",
+  github: " ",
+  linkedin: " ",
+  bio: " ",
   avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=MechEng&backgroundColor=b6e3f4",
   aboutPhoto: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
 };
